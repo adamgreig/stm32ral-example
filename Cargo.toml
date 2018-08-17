@@ -4,8 +4,8 @@ version = "0.1.0"
 authors = ["Adam Greig <adam@adamgreig.com>"]
 
 [dependencies]
-cortex-m = { version = "0.5.2", features = ["inline-asm"] }
-cortex-m-rt = "0.5.1"
+cortex-m = { version = "0.5.4", features = ["inline-asm"] }
+cortex-m-rt = "0.5.2"
 panic-abort = "0.2.0"
 
 [dependencies.stm32ral]

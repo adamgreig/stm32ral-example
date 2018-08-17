@@ -1,11 +1,11 @@
 #![no_std]
 #![no_main]
-#[macro_use(entry,exception)]
+#[macro_use(entry)]
 extern crate cortex_m_rt;
 extern crate cortex_m;
 extern crate panic_abort;
 
-#[macro_use]
+#[macro_use(write_reg, read_reg, modify_reg, reset_reg, interrupt)]
 extern crate stm32ral;
 use stm32ral::{gpio, rcc, tim2, nvic};
 
@@ -111,16 +111,4 @@ fn tim2() {
             write_reg!(gpio, GPIOE, BSRR, BS7: Set);
         }
     }
-}
-
-// You must provide a HardFault exception handler.
-exception!(HardFault, hard_fault);
-fn hard_fault(ef: &cortex_m_rt::ExceptionFrame) -> ! {
-    panic!("HardFault at {:#?}", ef);
-}
-
-// You must provide a default handler.
-exception!(*, default_handler);
-fn default_handler(irqn: i16) {
-    panic!("Unhandled exception (IRQn = {})", irqn);
 }
