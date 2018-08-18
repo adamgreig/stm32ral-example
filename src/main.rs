@@ -24,9 +24,10 @@ fn main() -> ! {
     let nvic = nvic::NVIC::take().unwrap();
 
     // Examples of reading from a register.
-    let _ = read_reg!(gpio, gpioe, IDR);
-    let _ = read_reg!(gpio, gpioe, IDR, IDR0);
-    let _ = gpioe.IDR.read();
+    let _idr = read_reg!(gpio, gpioe, IDR);
+    let _idr0 = read_reg!(gpio, gpioe, IDR, IDR0);
+    let (_idr0, _idr1, _idr2) = read_reg!(gpio, gpioe, IDR, IDR0, IDR1, IDR2);
+    let _idr = gpioe.IDR.read();
 
     // Examples of writing to a register
     // (and specifically, here we enable the GPIOE clock).
