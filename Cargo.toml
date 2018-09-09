@@ -3,10 +3,14 @@ name = "stm32ral-example"
 version = "0.1.0"
 authors = ["Adam Greig <adam@adamgreig.com>"]
 
+[patch.crates-io]
+#cortex-m-rt = { path = "/home/adam/Projects/cortex-m-rt" }
+#cortex-m = { path = "/home/adam/Projects/cortex-m" }
+
 [dependencies]
-cortex-m = { version = "0.5.4", features = ["inline-asm"] }
-cortex-m-rt = "0.5.2"
-panic-abort = "0.2.0"
+cortex-m = { version = "0.5.7", features = ["inline-asm"] }
+cortex-m-rt = "0.6.3"
+panic-abort = "0.3.0"
 
 [dependencies.stm32ral]
 path = "/home/adam/Projects/stm32ral"

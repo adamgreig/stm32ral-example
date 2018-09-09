@@ -1,20 +1,21 @@
 #![no_std]
 #![no_main]
-#[macro_use(entry)]
 extern crate cortex_m_rt;
 extern crate cortex_m;
 extern crate panic_abort;
+
+use cortex_m_rt::{entry};
 
 #[macro_use(write_reg, read_reg, modify_reg, reset_reg, interrupt)]
 extern crate stm32ral;
 use stm32ral::{gpio, rcc, tim2, nvic};
 
-/// Example of a function taking a `&RegisterBlock` which could be any GPIO.
+/// Example of a function taking a `&RegisterBlock` which could be any GPIO port.
 fn set_pin_9(gpio: &gpio::RegisterBlock) {
     write_reg!(gpio, gpio, BSRR, BS9: Set);
 }
 
-entry!(main);
+#[entry]
 fn main() -> ! {
     // We can `take()` each peripheral to provide safe synchronised access.
     let rcc = rcc::RCC::take().unwrap();
@@ -30,7 +31,7 @@ fn main() -> ! {
     let _idr = gpioe.IDR.read();
 
     // Examples of writing to a register
-    // (and specifically, here we enable the GPIOE clock).
+    // (and specifically, here we enable the GPIOE clock three ways).
     write_reg!(rcc, rcc, AHB1ENR, 0x00100000 | (1<<4));
     modify_reg!(rcc, rcc, AHB1ENR, |reg| reg | (1<<4));
     modify_reg!(rcc, rcc, AHB1ENR, GPIOEEN: Enabled);
