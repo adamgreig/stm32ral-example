@@ -9,8 +9,8 @@ authors = ["Adam Greig <adam@adamgreig.com>"]
 
 [dependencies]
 cortex-m = { version = "0.5.7", features = ["inline-asm"] }
-cortex-m-rt = "0.6.3"
-panic-abort = "0.3.0"
+cortex-m-rt = "0.6.5"
+panic-halt = "0.2.0"
 
 [dependencies.stm32ral]
 path = "/home/adam/Projects/stm32ral"

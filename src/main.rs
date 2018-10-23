@@ -2,13 +2,13 @@
 #![no_main]
 extern crate cortex_m_rt;
 extern crate cortex_m;
-extern crate panic_abort;
+extern crate panic_halt;
 
-use cortex_m_rt::{entry};
+use cortex_m_rt::entry;
 
-#[macro_use(write_reg, read_reg, modify_reg, reset_reg, interrupt)]
+#[macro_use(write_reg, read_reg, modify_reg, reset_reg)]
 extern crate stm32ral;
-use stm32ral::{gpio, rcc, tim2, nvic};
+use stm32ral::{gpio, rcc, tim2, nvic, interrupt};
 
 /// Example of a function taking a `&RegisterBlock` which could be any GPIO port.
 fn set_pin_9(gpio: &gpio::RegisterBlock) {
@@ -65,9 +65,9 @@ fn main() -> ! {
     tim2::TIM2::release(tim2);
 
     // Enable TIM2 interrupt in NVIC.
-    write_reg!(nvic, nvic, ISER0, 1<<(stm32ral::Interrupt::TIM2 as u8));
+    write_reg!(nvic, nvic, ISER0, 1<<(stm32ral::interrupt::TIM2 as u8));
     // You could also do this using cortex_m:
-    // peripherals.NVIC.enable(stm32ral::Interrupt::TIM2);
+    // peripherals.NVIC.enable(stm32ral::interrupt::TIM2);
     // We can also release NVIC now.
     nvic::NVIC::release(nvic);
 
@@ -87,8 +87,8 @@ fn main() -> ! {
 
 }
 
-interrupt!(TIM2, tim2);
-fn tim2() {
+#[interrupt]
+fn TIM2() {
     // Since we released tim2 in the main function, we can safely take() it here,
     // clear the interrupt pending flag, and release it again for next time.
     // For performance reasons you'd probably prefer to just use unsafe code in an
