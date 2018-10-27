@@ -8,7 +8,7 @@ authors = ["Adam Greig <adam@adamgreig.com>"]
 #cortex-m = { path = "/home/adam/Projects/cortex-m" }
 
 [dependencies]
-cortex-m = { version = "0.5.7", features = ["inline-asm"] }
+cortex-m = "0.5.7"
 cortex-m-rt = "0.6.5"
 panic-halt = "0.2.0"
 
