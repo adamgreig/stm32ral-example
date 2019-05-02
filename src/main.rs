@@ -1,13 +1,10 @@
 #![no_std]
 #![no_main]
-extern crate cortex_m_rt;
-extern crate cortex_m;
 extern crate panic_halt;
 
 use cortex_m_rt::entry;
 
-#[macro_use(write_reg, read_reg, modify_reg, reset_reg)]
-extern crate stm32ral;
+use stm32ral::{read_reg, write_reg, modify_reg, reset_reg};
 use stm32ral::{gpio, rcc, tim2, nvic, interrupt};
 
 /// Example of a function taking a `&RegisterBlock` which could be any GPIO port.
