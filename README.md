@@ -19,6 +19,5 @@ $ cargo build --release
 If that didn't work, you might need to set up your Rust environment:
 
 ```
-$ rustup toolchain install nightly
 $ rustup target add thumbv7em-none-eabihf
 ```
