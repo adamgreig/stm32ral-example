@@ -10,7 +10,7 @@ cortex-m-rt = "0.6.12"
 panic-halt = "0.2.0"
 
 [dependencies.stm32ral]
-version = "0.3.1"
+version = "0.4.0"
 features = ["stm32f405", "rt"]
 
 [profile.dev]
